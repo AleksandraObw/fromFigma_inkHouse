@@ -95,25 +95,61 @@ a:visited, a:link {
 .link {
     transition: all .6s;
 }
-.link:hover {
+.link:hover, 
+.link-mobile:hover, 
+.footer-link:hover {
     color: var(--medium-green-color);
     cursor: pointer;
 }
-:where(.link, .info-button):focus {
+.link:focus, 
+.info-button:focus, 
+.link-mobile:focus, 
+.footer-link:focus {
     background-color: var(--light-green-color);
 }
-.link:active {
+.link:active, 
+.link-mobile:active, 
+.footer-link:active {
     color: var(--dark-green-color);
 }
 svg:hover {
     cursor: pointer;
 }
 
+.links-list__cart-link {
+    position: relative;
+}
+
+.links-list__cart-number {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.cart-number {
+    width: 16px;
+    height: 16px;
+    background-color: var(--medium-green-color);
+    color: var(--white);
+    font-size: 12px;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: 600;
+}
+.cart-number:hover {
+    cursor: pointer;
+}
+
+
             /* For hamburger menu */
 
+.hidden {
+    display: none;
+}
 .mobile-menu-box.hidden {
     display: none;
 }
+
 .top-part {
     width: 100%;
     height: 68px;
@@ -189,6 +225,31 @@ body.noscroll {
 .menu-button.opened .bar:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
 }
+
+.mobile__cart-link {
+    position: relative;
+}
+
+.mobile__cart-number {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.mobile-cart-number {
+    width: 16px;
+    height: 16px;
+    background-color: var(--medium-green-color);
+    color: var(--white);
+    font-size: 12px;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: 600;
+}
+.mobile-cart-number:hover {
+    cursor: pointer;
+}
+
 
 
             /* for main part & sections */

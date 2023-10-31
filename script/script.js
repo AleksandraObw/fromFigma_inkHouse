@@ -1,103 +1,99 @@
-"use strict";
+"use strict"
 
-const hambMenu = document.querySelector("#hamb-menu");
-const body = document.body;
-const hambButton = document.querySelector("#hamb-button");
-const hambLink = document.querySelector("#hamb-link");
+const body = document.body
+const hambMenu = document.getElementById('hamb-menu')
+const hambButton = document.getElementById('hamb-button')
+const hambLinks = document.querySelectorAll('.hamb-link')
+const number = document.getElementById('number')
+const numberMobile = document.getElementById('number-mobile')
+const france = document.getElementById('france')
+const germany = document.getElementById('germany')
+const england = document.getElementById('england')
+const output = document.getElementById("output")
 
-hambButton.addEventListener("click", handleHamb);
-hambLink.addEventListener("click", closeMenu);
+let cartCount = 0
+
+hambButton.addEventListener('click', handleHamb)
+hambLinks.forEach(event => {
+  event.addEventListener('click', closeMenu)
+})
+
+output.addEventListener('click', event => {
+  if (event.target.classList.contains('button-addtocart')) {
+    number.classList.remove('hidden')
+    numberMobile.classList.remove('hidden')
+    addToCart()
+  }
+})
+
+france.addEventListener('click', showFrance)
+germany.addEventListener('click', showGermany)
+england.addEventListener('click', showEngland)
 
 function handleHamb() {
-  hambMenu.classList.toggle("hidden");
-  hambButton.classList.toggle("opened");
-  body.classList.toggle("noscroll");
+  hambMenu.classList.toggle('hidden')
+  hambButton.classList.toggle('opened')
+  body.classList.toggle('noscroll')
 }
 
 function closeMenu() {
-  hambMenu.classList.add("hidden");
-  hambButton.classList.remove("opened");
-  body.classList.remove("noscroll");
+  hambMenu.classList.toggle('hidden')
+  hambButton.classList.toggle('opened')
+  body.classList.toggle('noscroll')
 }
 
-// const france = document.querySelector("#france");
-// const germany = document.querySelector("#germany");
-// const england = document.querySelector("#england");
-// const output = document.querySelector("#output");
+function addToCart() {
+  cartCount++ 
+  number.innerHTML = cartCount
+  numberMobile.innerHTML = cartCount
+}
 
-// france.addEventListener("click", () => {
-//   output.innerHTML = "";
-//   fetch("data/france.json")
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((data) => {
-//     for (let element of Object.keys(data)) {  
-//       console.log(data);
-//         output.innerHTML += `
-//                 <li class="art-list__item item">
-//                             <article class="art-list__item-box item-box">
-//                                 <img class="item-box__image item-image" src="${element.image}" alt="Картина">
-//                                 <p class="item-box__author item-author">${element.name}</p>
-//                                 <h3 class="item-box__title item-title">${element.title}</h3>
-//                                 <p class="item-box__type item-type">${element.type}</p>
-//                                 <p class="item-box__price item-price">${element.price}</p>
-//                                 <button class="item-box__button button button-addtocart">В корзину</button>
-//                             </article>
-//                  `;
-//   };
-// });
-// });
+function showGermany() {
+  output.innerHTML = ''
+  let jsonFile = `data/germany.json`
+  fetch(jsonFile)
+    .then((response) => response.json()) 
+    .then((data) => {
+      for (let i=0; i<data.result.length; i++) {
+        fillList(data.result[i])
+      }
+})
+}
 
-// const localJsonGermany = "data/germany.json";
-// const localJsonEngland = "data/england.json";
-// const localJsonFrance = "data/france.json";
+function showFrance() {
+  output.innerHTML = ''
+  let jsonFile = `data/france.json`
+  fetch(jsonFile)
+    .then((response) => response.json()) 
+    .then((data) => {
+      for (let i=0; i<data.result.length; i++) {
+        fillList(data.result[i])
+      }
+})
+}
 
-// germany.addEventListener("click", () => {
-//   fetch(localJsonGermany)
-//     .then((response) => {
-//       return response.json();
-//     }) 
-//     .then((data) => 
-//     {
-//       for (element of data) {
-//       console.log(element);
-//       fillListJson(element);
-//       };
-//     });
-// });
+function showEngland() {
+  output.innerHTML = ''
+  let jsonFile = `data/england.json`
+  fetch(jsonFile)
+    .then((response) => response.json()) 
+    .then((data) => {
+      for (let i=0; i<data.result.length; i++) {
+        fillList(data.result[i])
+      }
+})
+}
 
-// france.addEventListener("click", () => {
-//   fetch(localJsonFrance)
-//     .then((response) => response.json()) 
-//     .then((data) => {
-//         for (element of data) {
-//           fillListJson(element);
-//       };
-//     });
-// });
-
-// england.addEventListener("click", () => {
-//   fetch(localJsonEngland)
-//     .then((response) => response.json()) 
-//     .then((data) => {
-//         for (element of data) {
-//           fillListJson(element);
-//       };
-//     });
-// });
-
-// function  fillListJson(item) {
-//     output.innerHTML += `
-//         <li class="art-list__item item">
-//                     <article class="art-list__item-box item-box">
-//                         <img class="item-box__image item-image" src="${element.image}" alt="Картина">
-//                         <p class="item-box__author item-author">${element.name}</p>
-//                         <h3 class="item-box__title item-title">${element.title}</h3>
-//                         <p class="item-box__type item-type">${element.type}</p>
-//                         <p class="item-box__price item-price">${element.price}</p>
-//                         <button class="item-box__button button button-addtocart">В корзину</button>
-//                     </article>
-//                 </li>
-//         `;
-// }
+function fillList(item) {
+  output.innerHTML += `
+        <li class="art-list__item item">
+                    <article class="art-list__item-box item-box">
+                        <img class="item-box__image item-image" src="${item.image}" alt="Картина">
+                        <p class="item-box__author item-author">${item.name}</p>
+                        <h3 class="item-box__title item-title">${item.title}</h3>
+                        <p class="item-box__type item-type">${item.type}</p>
+                        <p class="item-box__price item-price">${item.price}</p>
+                        <button class="item-box__button button button-addtocart">В корзину</button>
+                    </article>
+                </li>`
+}
